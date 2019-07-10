@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TUBE</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+
+<h1>TUBE</h1>
+<p>
+    turn me <span id="word">on</span>
+</p>
+
+<div id="btn">
+        <div class="wrapper">
+            <input type="checkbox" id="onoff" onchange="switchlamp(this)">
+                <label for="onoff"><i class="icon-off"></i>
+                <span class="light"></span>
+            </label>
+        </div>
+</div>
+
+<style>
+/* -------------------------
+	On & Off button
+---------------------------- */
+
+body {
+  background: #272b30;
+  font-family: 'Rubik', sans-serif;
+}
+
+h1{
+    color: white;
+    text-align: center;
+}
+
+p{
+    color: #c2c2c2;
+    text-align: center;
+
+}
+
+
+/* Let's change the box-model */
+
+* {
+  box-sizing: border-box;
+  font-style: normal;
+}
+
+
+/* Now, the wrapper */
+
+.wrapper {
+  width: 150px;
+  height: 150px;
+  margin: 70px auto;
+  position: relative;
+}
+
+
+/* We hide the input and place it on top of everything else */
+
+.wrapper input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 100;
+}
+
+
+/* Let's deal with the label now, which is our graphical element */
+
+.wrapper label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: all .1s ease-in-out;
+  border-radius: 50%;
+  position: relative;
+ /* background: linear-gradient(#f7f2f6, #b2ac9e);*/
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.13), 0 5px 8px rgb(0, 0, 0), 0 10px 10px 4px rgba(0, 0, 0, 0.49);
+  /* Now let's give it some font styles, for the incoming icon */
+  font-size: 70px;
+  line-height: 105px;
+  text-shadow: 0 0px 10px red;
+  text-align: center;
+  z-index: 1;
+  /* We will need this later */
+  font-family: FontAwesome;
+  content: "\f000";
+  color: red;
+}
+
+
+/* Now pseudo-elements, just to make the whole button nicer */
+
+.wrapper label:after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  bottom: -20px;
+  left: -20px;
+  z-index: -2;
+  border-radius: 20%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 10px rgb(0, 0, 0);
+}
+
+
+/* The second one */
+
+.wrapper label:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: inset 0 10px 10px rgba(0, 0, 0, 0.13);
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+  /* The blur filter is a little smooth trick. It makes those kind of shadows smoother. Looks great, doesn't it ? */
+}
+
+
+/* A last thing to make it looks even better */
+
+.wrapper .icon-off:after {
+    position: absolute;
+    border-radius: 50%;
+    left: 15%;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+    z-index: -1;
+    background: linear-gradient(#555, #1e1e1e);
+    box-shadow: 0 -2px 5px #222, 0 2px 5px #1e1e1e;
+    font-family: FontAwesome;
+    content: "\f011";
+}
+
+.light {
+  display: block;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: -webkit-radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  background: radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  box-shadow: inset 0 1px 1px 0 #999, inset 0 -1px 1px 0 #999, 0 0 5px 1px #f00;
+  border-radius: 50%;
+  transition: all .1s ease-in-out;
+}
+
+
+/* It looks awesome, but we need to take care of the :checked state since the button has 2 states. From there, :checked is our friend! */
+.wrapper input:checked ~ label .icon-off:after {
+    position: absolute;
+    border-radius: 50%;
+    left: 15%;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+    z-index: -1;
+    background: linear-gradient(#1e1e1e,#555);
+    box-shadow: 0 -2px 5px #222, 0 2px 5px #1e1e1e;
+    font-family: FontAwesome;
+    content: "\f011";
+}
+
+.wrapper input:checked ~ label {
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.13), 0 5px 8px rgba(0, 0, 0, 0.35), 0 3px 10px 4px rgba(0, 0, 0, 0.2);
+  color: #00ff21;
+  text-shadow: 0 0 10px #00ff21;
+}
+
+#onoff:checked + label .light {
+  background: -webkit-radial-gradient(center, ellipse cover, #ccffce 0%, #91ff88 60%, #00ff15 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #fcc 0%, #f88 60%, #f00 100%);
+  background: radial-gradient(center, ellipse cover, #fcc 0%, #f88 60%, #f00 100%);
+  box-shadow: inset 0 1px 1px 0 #999, inset 0 -1px 1px 0 #999, 0 0 5px 1px #55ff6b;
+  transition: all .1s linear;
+}
+
+
+/* Done. Click on it to see the rendering. What do you think guys ? */
+</style>
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDCVP3K6VFn6zBz0_pGAMxnErYUVRKds_8",
+    authDomain: "plog-app.firebaseapp.com",
+    databaseURL: "https://plog-app.firebaseio.com",
+    projectId: "plog-app",
+    storageBucket: "plog-app.appspot.com",
+    messagingSenderId: "898587914117",
+    appId: "1:898587914117:web:e31e70bfb219e51c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.firestore().collection('lamp').doc('one').onSnapshot((doc)=>{
+      let state = doc.data().status;
+
+      let btn = document.querySelector('#onoff')
+      let w = document.querySelector('#word')
+    if(state){
+      btn.checked = true
+      word.innerHTML = "OFF"
+    } else {
+        btn.checked = false
+      word.innerHTML = "ON"
+    }
+  })
+
+  function switchlamp(checkboxElem) {
+        if (checkboxElem.checked) {
+            firebase.firestore().collection('lamp').doc('one').set({status:true})
+        } else {
+            firebase.firestore().collection('lamp').doc('one').set({status:false})
+        }
+   }
+
+</script>   
+
+
+</body>
+</html>
