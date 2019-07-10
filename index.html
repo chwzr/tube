@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TUBE</title>
-    <link href="https://fonts.googleapis.com/css?family=Rubik:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:900|Work+Sans:100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <h1>TUBE</h1>
 <p>
-    turn me <span id="word">on</span>
+    turn me <span id="word">on</span>,  I'm interactive
 </p>
 
 <div id="btn">
@@ -24,6 +25,10 @@
             </label>
         </div>
 </div>
+
+<p class="sub">
+    A project by Lena C. Kozik & <a href="https://koppe.design">Felix Koppe</a> 
+</p>
 
 <style>
 /* -------------------------
@@ -43,7 +48,22 @@ h1{
 p{
     color: #c2c2c2;
     text-align: center;
+    font-family: 'Work Sans', sans-serif;
+}
 
+#word{
+    color: white;
+    font-family: 'Rubik', sans-serif;
+}
+
+.sub{
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+}
+
+a{
+    color: white;
+    text-decoration: none;
 }
 
 
@@ -223,10 +243,10 @@ p{
       let w = document.querySelector('#word')
     if(state){
       btn.checked = true
-      word.innerHTML = "OFF"
+      word.innerHTML = "off"
     } else {
         btn.checked = false
-      word.innerHTML = "ON"
+      word.innerHTML = "on"
     }
   })
 
